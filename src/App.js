@@ -1,7 +1,10 @@
+import TipCalculator from "./components/TipCalculator";
+import GlobalStyle from "./components/GlobalStyle";
 function App() {
   return (
     <div className="App">
-      <h3>Comming soon</h3>
+      <GlobalStyle />
+      <TipCalculator />
     </div>
   );
 }
