@@ -1,25 +1,59 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const TipCalculator = () => {
+  const [percentage, setPercentage] = useState(0.0);
+  const [total, setTotal] = useState(0.0);
+
+  const handleClick = (event) => {
+    const percentageInput = event.currentTarget.value;
+    setPercentage(parseFloat(percentageInput));
+  };
+
+  const handleInputChange = (event) => {
+    const totalInput = event.target.value;
+    if (!totalInput) {
+      return;
+    }
+    setTotal(parseFloat(totalInput));
+  };
+
+  const calculateFinalAmount = () => {
+    const finalAmount = total + (percentage / 100) * total;
+    return parseFloat(finalAmount).toFixed(2);
+  };
+
   return (
     <Wrapper>
       <FinalAmount>
-        <h3>21.90</h3>
+        <h3>${calculateFinalAmount()}</h3>
         <p>
-          20% <span>Tip</span>
+          {percentage}%<span> Tip</span>
         </p>
       </FinalAmount>
       <Form>
         <form>
           <label>TOTAL</label>
-          <input type="number" placeholder="$10.55" />
+          <input
+            min="0"
+            type="number"
+            placeholder="$10.55"
+            step="0.01"
+            onChange={handleInputChange}
+          />
         </form>
       </Form>
       <ChooseTip>
         <p>Choose Tip</p>
-        <button>10%</button>
-        <button>15%</button>
-        <button>20%</button>
+        <button value={10} onClick={handleClick}>
+          10%
+        </button>
+        <button value={15} onClick={handleClick}>
+          15%
+        </button>
+        <button value={20} onClick={handleClick}>
+          20%
+        </button>
       </ChooseTip>
     </Wrapper>
   );
